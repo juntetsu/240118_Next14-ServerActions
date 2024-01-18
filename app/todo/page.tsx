@@ -20,13 +20,13 @@ export default async function Todo() {
 
   return (
     <>
-      <div>
-        <h2>Todo List</h2>
-        {data?.contents.map((item, index) => (
-          <ul key={index}>
-            <li>{item.title}</li>
-          </ul>
-        ))}
+      <div className="max-w-screen-sm mx-auto mt-10">
+        <h2 className="text-2xl font-bold">Todo List</h2>
+        <ul className="flex flex-col mt-4">
+          {data?.contents.map((item, index) => (
+            <li key={item.id} className="border-t py-4 last:border-b">{item.title}</li>
+          ))}
+        </ul>
       </div>
     </>
   );
