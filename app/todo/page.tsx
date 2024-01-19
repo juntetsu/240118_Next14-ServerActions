@@ -35,6 +35,19 @@ export default async function Todo() {
     revalidatePath("/todo", "page");
   };
 
+  const deleteTodo = async (formData: FormData) => {
+    "use server";
+
+    const id = formData.get("id") as string;
+    // microCMSへの削除処理
+    await client.delete({
+      endpoint: "todo",
+      contentId: id,
+    });
+
+    revalidatePath("/todo", "page");
+  };
+
   return (
     <div className="max-w-screen-sm mx-auto">
       <div className="mt-8">
@@ -74,9 +87,7 @@ export default async function Todo() {
                 >
                   <FaPen />
                 </Link>
-                <form
-                // action={deleteTodo}
-                >
+                <form action={deleteTodo}>
                   <input type="hidden" name="id" value={item.id} />
                   <button
                     type="submit"
