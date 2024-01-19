@@ -1,7 +1,8 @@
 import { client } from "@/lib/client";
 import { revalidatePath } from "next/cache";
+import Link from "next/link";
 
-type dataType = {
+export type dataType = {
   contents: contentsType[];
   totalCount: number;
   offset: number;
@@ -36,7 +37,10 @@ export default async function Todo() {
     <div className="max-w-screen-sm mx-auto">
       <div className="mt-8">
         <h2 className="text-2xl font-bold">Create</h2>
-        <form action={createTodo} className="flex items-center justify-between mt-4">
+        <form
+          action={createTodo}
+          className="flex items-center justify-between mt-4"
+        >
           <input
             type="text"
             name="title"
@@ -56,8 +60,14 @@ export default async function Todo() {
         <h2 className="text-2xl font-bold">Todo List</h2>
         <ul className="flex flex-col mt-4">
           {data?.contents.map((item, index) => (
-            <li key={item.id} className="border-t py-4 last:border-b">
+            <li
+              key={item.id}
+              className="border-t py-4 last:border-b flex justify-between items-center"
+            >
               {item.title}
+              <div className="flex gap-4">
+                <Link href={`/todo/${item.id}`}>編集</Link>
+              </div>
             </li>
           ))}
         </ul>
